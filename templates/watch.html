@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link type="image/x-icon" href="static/favicon.png" rel="shortcut icon">
+    <link type="Image/x-icon" href="static/favicon.png" rel="icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ video.title }} - FoxVid</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ video.title }}</h1>
+
+        <div class="video-wrapper">
+            <video controls>
+                <source src="{{ url_for('serve_video', filename=video.filename) }}" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+        </div>
+
+        <p>Просмотры: {{ video.views }}</p>
+        <p>Категория: {{ video.category }}</p>
+        <p>Автор: {{ video.author.username }}</p>
+        <a href="{{ url_for('index') }}" class="button">Вернуться на главную</a>
+    </div>
+</body>
+</html>

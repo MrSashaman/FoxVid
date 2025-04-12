@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link type="image/x-icon" href="static/favicon.png" rel="shortcut icon">
+    <link type="Image/x-icon" href="static/favicon.png" rel="icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoxVid</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <div class="header">
+        {% if current_user.is_authenticated %}
+            <p>Привет, {{ current_user.username }}! <a href="{{ url_for('logout') }}">Выйти</a></p>
+        {% else %}
+            <a href="{{ url_for('login') }}">Войти</a> | <a href="{{ url_for('register') }}">Регистрация</a>
+        {% endif %}
+    </div>
+
+    <div class="container">
+        <h1>FoxVid</h1>
+        <a href="{{ url_for('add_video') }}" class="button">Добавить видео</a>
+
+        <div class="video-list">
+    {% for video in videos %}
+        <div class="video-item">
+            <a href="{{ url_for('watch_video', video_id=video.id) }}">
+                <img src="{{ url_for('serve_thumbnail', filename=video.thumbnail) }}" alt="{{ video.title }}">
+            </a>
+            <div class="video-info">
+                <p><strong>{{ video.title }}</strong></p>
+                <p>Категория: {{ video.category }}</p>
+                <p>Просмотры: {{ video.views }}</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+        </div>
+    </div>
+</body>
+</html>
